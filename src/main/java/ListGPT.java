@@ -7,30 +7,31 @@ public class ListGPT {
     private static int itemCount = 0;
 
     public static String message(String text) {
-        return "   " + linebreak + "\n   " + text + "\n   " + linebreak + "\n";
+        return "   " + linebreak + "\n" + text + "\n   " + linebreak + "\n";
     }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        System.out.println(message("Hello! I'm " + name + "!\n   What can I do for you?"));
+        System.out.println(message("   Hello! I'm " + name + "!\n   What can I do for you?"));
         String input = sc.nextLine();
         while (!input.equals("bye")) {
             if (input.equals("list")) {
                 input = "";
                 for (int i = 0; i < itemCount; i++) {
-                    input += ("   " + i+1 + ". " + items[i] + "\n");
+                    int idx = i + 1;
+                    input += ("   " + idx + ". " + items[i] + "\n");
                 }
             } else {
                 items[itemCount++] = input;
-                input = "added: " + input;
+                input = "   added: " + input;
             }
-            System.out.print(message(input));
+            System.out.print(message(input) + "\n");
             input = sc.nextLine();
         }
 
 
-        System.out.println(message("Bye. Hope to see you again soon!"));
+        System.out.println(message("   Bye. Hope to see you again soon!"));
     }
 
 
