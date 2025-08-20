@@ -4,7 +4,7 @@ public class TaskList {
 
     public String add(Task t) {
         tasks[taskInd++] = t;
-        return "added: " + t.toString();
+        return "   added: " + t.toString();
     }
 
     public Boolean contains(int ind) {
@@ -32,5 +32,13 @@ public class TaskList {
         }
 
         return output.toString();
+    }
+
+    public int getCount() {
+        return taskInd;
+    }
+
+    public String getPrettyCount() {
+        return "   Now you have " + this.getCount() + " " + (taskInd == 1 ? "task" : "tasks") + " in the list.";
     }
 }
