@@ -40,8 +40,12 @@ public class ListGPT {
 
                 // Add a todo
             } else if (input.startsWith("todo")){
-                input = list.add(new ToDo(input)) + "\n" + list.getPrettyCount();
-
+                String rest = input.substring(5);
+                try {
+                    input = list.add(new ToDo(rest)) + "\n" + list.getPrettyCount();
+                } catch (InvalidTaskException e) {
+                    input = e.getMessage();
+                }
                 // add a deadline
             } else if (input.startsWith("deadline")) {
                 String rest = input.substring(9);
@@ -49,7 +53,11 @@ public class ListGPT {
                 if (parts.length == 2) {
                     String task = parts[0];
                     String deadline = parts[1];
-                    input = list.add(new Deadline(task, deadline)) + "\n" + list.getPrettyCount();
+                    try {
+                        input = list.add(new Deadline(task, deadline)) + "\n" + list.getPrettyCount();
+                    } catch (InvalidTaskException e) {
+                        input = e.getMessage();
+                    }
                 }
 
                 // add a event
@@ -61,9 +69,16 @@ public class ListGPT {
                     String task = parts[0];
                     String startDate = parts[1];
                     String endDate = parts[2];
-                    input = list.add(new Event(task, startDate, endDate)) + "\n" + list.getPrettyCount();
+                    try {
+                        input = list.add(new Event(task, startDate, endDate)) + "\n" + list.getPrettyCount();
+                    } catch (InvalidTaskException e) {
+                        input = e.getMessage();
+                    }
+
                 }
 
+            } else {
+                input = "   OOPS!! I'm sorry, but I don't know what that means :-(";
             }
             System.out.print(message(input) + "\n");
             input = sc.nextLine();
