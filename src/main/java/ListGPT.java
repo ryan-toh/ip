@@ -28,6 +28,7 @@ public class ListGPT {
                 } else {
                     input = "The task with the specified index " + idx + " does not exist.";
                 }
+
                 // To mark the task as undone
             } else if (input.matches("unmark \\d+")) {
                 int idx = Integer.parseInt(input.substring(7));
@@ -50,6 +51,7 @@ public class ListGPT {
                     String deadline = parts[1];
                     input = list.add(new Deadline(task, deadline)) + "\n" + list.getPrettyCount();
                 }
+
                 // add a event
             } else if (input.startsWith("event")) {
                 String rest = input.substring(6);
