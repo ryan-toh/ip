@@ -32,10 +32,20 @@ public class ListGPT {
                 // To mark the task as undone
             } else if (input.matches("unmark \\d+")) {
                 int idx = Integer.parseInt(input.substring(7));
-                if (list.contains(idx-1)) {
-                    input = list.markUndone(idx-1);
+                if (list.contains(idx - 1)) {
+                    input = list.markUndone(idx - 1);
                 } else {
                     input = "The task with the specified index " + idx + " does not exist.";
+                }
+
+                // To delete a task
+            } else if (input.matches("delete \\d+")) {
+                int idx = Integer.parseInt(input.substring(7));
+                if (!list.contains(idx)) {
+                    input = "   OOPS!! The task specified does not exist.";
+                } else {
+                    input = "   Noted. I've removed this task:\n    " +
+                            list.remove(idx - 1) + "\n" + list.getPrettyCount();
                 }
 
                 // Add a todo
@@ -46,7 +56,7 @@ public class ListGPT {
                 } catch (InvalidTaskException e) {
                     input = e.getMessage();
                 }
-                // add a deadline
+                // Add a deadline
             } else if (input.startsWith("deadline")) {
                 String rest = input.substring(9);
                 String[] parts = rest.split(" /by ", 2);
@@ -60,7 +70,7 @@ public class ListGPT {
                     }
                 }
 
-                // add a event
+                // Add a event
             } else if (input.startsWith("event")) {
                 String rest = input.substring(6);
                 String[] parts = rest.split(" /from | /to", 3);
@@ -74,9 +84,7 @@ public class ListGPT {
                     } catch (InvalidTaskException e) {
                         input = e.getMessage();
                     }
-
                 }
-
             } else {
                 input = "   OOPS!! I'm sorry, but I don't know what that means :-(";
             }
