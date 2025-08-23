@@ -23,8 +23,8 @@ public class ListGPT {
                 // To mark a task as done
             } else if (input.matches("mark \\d+")) {
                 int idx = Integer.parseInt(input.substring(5));
-                if (list.contains(idx-1)) {
-                    input = list.markDone(idx-1);
+                if (list.contains(idx - 1)) {
+                    input = list.markDone(idx - 1);
                 } else {
                     input = "The task with the specified index " + idx + " does not exist.";
                 }
@@ -41,7 +41,7 @@ public class ListGPT {
                 // To delete a task
             } else if (input.matches("delete \\d+")) {
                 int idx = Integer.parseInt(input.substring(7));
-                if (!list.contains(idx)) {
+                if (!list.contains(idx - 1)) {
                     input = "   OOPS!! The task specified does not exist.";
                 } else {
                     input = "   Noted. I've removed this task:\n    " +
