@@ -56,6 +56,7 @@ public class ListGPT {
                 } catch (InvalidTaskException e) {
                     input = e.getMessage();
                 }
+
                 // Add a deadline
             } else if (input.startsWith("deadline")) {
                 String rest = input.substring(9);
@@ -91,9 +92,6 @@ public class ListGPT {
             System.out.print(message(input) + "\n");
             input = sc.nextLine();
         }
-
         System.out.println(message("   Bye. Hope to see you again soon!"));
     }
-
-
 }
