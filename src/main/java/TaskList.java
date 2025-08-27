@@ -15,7 +15,7 @@ public class TaskList {
     }
 
     public Boolean contains(int ind) {
-        return ind > 0 && ind <= tasks.size();
+        return ind >= 0 && ind <= tasks.size();
     }
 
     public String markDone(int ind) {
@@ -39,6 +39,18 @@ public class TaskList {
         }
 
         return output.toString();
+    }
+
+    /**
+     * Overwrites the current list with the provided list
+     * @param list An ArrayList of Tasks
+     */
+    public void importList(ArrayList<Task> list) {
+        this.tasks = list;
+    }
+
+    public ArrayList<Task> exportList() {
+        return this.tasks;
     }
 
     public int getCount() {
