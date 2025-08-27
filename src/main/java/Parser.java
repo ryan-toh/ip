@@ -1,3 +1,4 @@
+import java.time.DateTimeException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -77,11 +78,11 @@ public class Parser {
                 String deadline = parts[1];
                 try {
                     return list.add(new Deadline(task, deadline)) + "\n" + list.getPrettyCount();
-                } catch (InvalidTaskException e) {
-                    return e.getMessage();
+                } catch (InvalidTaskException | DateTimeException e) {
+                    return "    OOPS: " + e.getMessage();
                 }
             } else {
-                return "Usage: deadline <description> /by <when>";
+                return "Usage: deadline <description> /by <YYYY-MM-DD>";
             }
         }
 
@@ -96,11 +97,11 @@ public class Parser {
                 String endDate = parts[2];
                 try {
                     return list.add(new Event(task, startDate, endDate)) + "\n" + list.getPrettyCount();
-                } catch (InvalidTaskException e) {
-                    return e.getMessage();
+                } catch (InvalidTaskException | DateTimeException e) {
+                    return "    OOPS: " + e.getMessage();
                 }
             } else {
-                return "Usage: event <description> /from <start> /to <end>";
+                return "Usage: event <description> /from <YYYY-MM-DD> /to <YYYY-MM-DD>";
             }
         }
 
