@@ -15,6 +15,10 @@ public class Task {
         return "[" + (isComplete ? "X" : " ") + "] " + name;
     }
 
+    public String getDescription() {
+        return this.name;
+    }
+
     public String markDone() {
         isComplete = true;
         return this.toString();
