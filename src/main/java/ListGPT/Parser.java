@@ -30,6 +30,12 @@ public class Parser {
             return list.toString();
         }
 
+        // Find
+        if (input.startsWith("find")) {
+            String rest = input.length() >= 5 ? input.substring(5) : "";
+            return list.find(rest);
+        }
+
         // Mark done
         if (input.matches("^mark \\d+$")) {
             int idx = parseIndex(input, "^mark (\\d+)$");

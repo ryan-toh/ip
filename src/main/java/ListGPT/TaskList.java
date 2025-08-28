@@ -37,37 +37,29 @@ public class TaskList {
         StringBuilder output = new StringBuilder("   Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             int idx = i + 1;
-            output.append("   ").append(idx).append(". ").append(tasks.get(i)).append("\n");
+            Task task = tasks.get(i);
+            output.append("   ").append(idx).append(". ").append(task).append("\n");
         }
 
         return output.toString();
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-
-        if (obj.getClass() != this.getClass()) {
-            return false;
-        }
-
-        final TaskList other = (TaskList) obj;
-
-        if (!this.tasks.equals(other.tasks)) {
-            return false;
-        }
-
-        return true;
-    }
-
     /**
-     * Overwrites the current list with the provided list
-     * @param list An ArrayList of Tasks
+     * Takes the given keyword and outputs tasks that contain the keyword.
+     * @param keyword a keyword.
+     * @return a String of tasks that contain the keyword.
      */
-    public void importList(ArrayList<Task> list) {
-        this.tasks = list;
+    public String find(String keyword) {
+        StringBuilder output = new StringBuilder("   Here are the matching tasks in your list:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            int idx = i + 1;
+            Task task = tasks.get(i);
+            if (task.getDescription().contains(keyword)) {
+                output.append("   ").append(idx).append(". ").append(task).append("\n");
+            }
+        }
+
+        return output.toString();
     }
 
     public ArrayList<Task> exportList() {
