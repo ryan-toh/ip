@@ -2,16 +2,16 @@ package ListGPT;
 
 public class ListGPT {
     private static TaskList list = new TaskList();
-    private static UI ui = new UI(list);
-    private static Storage store = new Storage("./data/ListGPT.txt", list);
+    private static UI userInterface = new UI(list);
+    private static Storage storage = new Storage("./data/ListGPT.txt", list);
 
     public static void main(String[] args) {
         // Retrieve before running
-        store.retrieve();
+        storage.retrieve();
 
-        ui.run();
+        userInterface.run();
 
         // Save on exit
-        store.store();
+        storage.store();
     }
 }

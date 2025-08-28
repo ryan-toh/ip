@@ -7,7 +7,7 @@ package ListGPT;
 public class Task {
 
     /** Task name/description. */
-    private String name;
+    private String description;
 
     /** Completion flag; set to true if the task is done. */
     private Boolean isComplete;
@@ -15,14 +15,14 @@ public class Task {
     /**
      * Constructs a Task with the given name.
      *
-     * @param name the task name/description.
+     * @param description the task name/description.
      * @throws InvalidTaskException if name is empty.
      */
-    public Task(String name) throws InvalidTaskException {
-        if (name.isEmpty()) {
+    public Task(String description) throws InvalidTaskException {
+        if (description.isEmpty()) {
             throw new InvalidTaskException("   OOPS!! The description of a todo cannot be empty.");
         }
-        this.name = name;
+        this.description = description;
         this.isComplete = false;
     }
 
@@ -33,7 +33,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        return "[" + (isComplete ? "X" : " ") + "] " + name;
+        return "[" + (isComplete ? "X" : " ") + "] " + description;
     }
 
     /**
@@ -42,7 +42,7 @@ public class Task {
      * @return the task description.
      */
     public String getDescription() {
-        return this.name;
+        return this.description;
     }
 
     /**

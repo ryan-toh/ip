@@ -31,6 +31,7 @@ public class Deadline extends Task {
                 Integer.parseInt(params[0]),
                 Integer.parseInt(params[1]),
                 Integer.parseInt(params[2]));
+
     }
 
     /**
@@ -38,7 +39,7 @@ public class Deadline extends Task {
      *
      * @return the due date string.
      */
-    public String getBy() {
+    public String getDueDate() {
         return this.dueDate.toString();
     }
 
@@ -50,6 +51,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.getBy() + ")";
+        return "[D]" + super.toString() + " (by: " + this.getDueDate() + ")";
     }
 }

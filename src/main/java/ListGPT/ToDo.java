@@ -7,10 +7,10 @@ public class ToDo extends Task {
     /**
      * Constructs a new to-do task with the given description.
      *
-     * @param name The description of the to-do task.
+     * @param description The description of the to-do task.
      */
-    public ToDo(String name) {
-        super(name);
+    public ToDo(String description) {
+        super(description);
     }
 
     /**

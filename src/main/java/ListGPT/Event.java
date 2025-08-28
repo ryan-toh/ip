@@ -10,10 +10,10 @@ import java.time.LocalDate;
 public class Event extends Task {
 
     /** Start date of the event. */
-    LocalDate startDate;
+    private LocalDate startDate;
 
     /** End date of the event. */
-    LocalDate endDate;
+    private LocalDate endDate;
 
     /**
      * Constructs an Event with the given name, start date, and end date.

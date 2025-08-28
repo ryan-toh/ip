@@ -6,12 +6,11 @@ import java.util.Scanner;
  * Console-based user interface for the ListGPT application.
  */
 public class UI {
-
     /** Display name used in greetings. */
-    private final String name = "ListGPT";
+    private final String appName = "ListGPT";
 
     /** Horizontal line used as a visual separator around messages. */
-    private final String linebreak = "__________________________________";
+    private final String lineBreak = "__________________________________";
 
     /** The task list that commands will operate on. */
     private TaskList list;
@@ -31,8 +30,8 @@ public class UI {
      * @param text the message body to format; may contain newlines.
      * @return a formatted message string.
      */
-    public String message(String text) {
-        return "   " + linebreak + "\n" + text + "\n   " + linebreak + "\n";
+    public String formatMessage(String text) {
+        return "   " + lineBreak + "\n" + text + "\n   " + lineBreak + "\n";
     }
 
     /**
@@ -41,24 +40,24 @@ public class UI {
      * enters "bye"
      */
     public void run() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println(message("   Hello! I'm " + name + "!\n   What can I do for you?"));
+        Scanner scanner = new Scanner(System.in);
+        System.out.println(formatMessage("   Hello! I'm " + appName + "!\n   What can I do for you?"));
 
         while (true) {
-            String input = sc.nextLine();
+            String input = scanner.nextLine();
             if (input.equals("bye")) {
-                this.bye();
+                this.sayBye();
                 return;
             }
             String response = Parser.parse(input, list);
-            System.out.print(message(response) + "\n");
+            System.out.print(formatMessage(response) + "\n");
         }
     }
 
     /**
      * Prints the farewell message to standard output.
      */
-    private void bye() {
-        System.out.println(message("   Bye. Hope to see you again soon!"));
+    private void sayBye() {
+        System.out.println(formatMessage("   Bye. Hope to see you again soon!"));
     }
 }
