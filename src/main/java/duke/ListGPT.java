@@ -1,5 +1,4 @@
-import java.util.Arrays;
-import java.util.Scanner;
+package duke;
 
 public class ListGPT {
     private static TaskList list = new TaskList();

@@ -15,7 +15,7 @@ bin/
 
 # Class Files
 *.class
-!*ListGPT.java
+!src/main/java/duke/ListGPT.java
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT

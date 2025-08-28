@@ -1,8 +1,10 @@
+package duke;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
 public class Deadline extends Task {
-    LocalDate dueDate;
+    private LocalDate dueDate;
 
 
     public Deadline(String name, String dueDate) throws DateTimeException {
