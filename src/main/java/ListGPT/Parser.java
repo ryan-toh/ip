@@ -4,8 +4,18 @@ import java.time.DateTimeException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * A utility class for parsing user input commands and converting tasks back to their original command format.
+ */
 public class Parser {
-    public static String reverseParse(Task task) {
+    /**
+     * Converts a task object back into its original command string format.
+     *
+     * @param task The task object to be reverse-parsed.
+     * @return The original command string representation of the task.
+     * @throws IllegalArgumentException If the task type is unknown.
+     */
+    public static String reverseParse(Task task) throws IllegalArgumentException {
         if (task instanceof ToDo) {
             // e.g. "todo read book"
             return "todo " + task.getDescription();
@@ -22,6 +32,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses user input and executes the corresponding command on the task list.
+     *
+     * @param input The user input string to be parsed.
+     * @param list  The task list to apply the command to.
+     * @return A confirmation message or error message based on the command executed.
+     */
     public static String parse(String input, TaskList list) {
         input = input.trim();
 
@@ -111,6 +128,13 @@ public class Parser {
         return "   OOPS!! I'm sorry, but I don't know what that means :-(";
     }
 
+    /**
+     * Extracts the numeric index from a command string using a regex pattern.
+     *
+     * @param input  The input string containing the command.
+     * @param regex  The regex pattern to match the index.
+     * @return The parsed index as an integer, or -1 if no match is found.
+     */
     private static int parseIndex(String input, String regex) {
         Matcher m = Pattern.compile(regex).matcher(input);
         if (m.find()) {

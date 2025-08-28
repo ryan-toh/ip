@@ -6,6 +6,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * A utility class for persisting and retrieving task data to/from a file.
+ */
 public class Storage {
     private String filepath;
     private TaskList list;
