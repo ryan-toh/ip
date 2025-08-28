@@ -1,4 +1,4 @@
-package duke;
+package ListGPT;
 
 import java.util.Scanner;
 

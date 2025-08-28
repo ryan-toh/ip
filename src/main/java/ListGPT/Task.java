@@ -1,4 +1,4 @@
-package duke;
+package ListGPT;
 
 public class Task {
     private String name;

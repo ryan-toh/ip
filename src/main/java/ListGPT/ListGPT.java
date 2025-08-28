@@ -1,4 +1,4 @@
-package duke;
+package ListGPT;
 
 public class ListGPT {
     private static TaskList list = new TaskList();

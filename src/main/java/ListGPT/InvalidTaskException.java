@@ -1,4 +1,4 @@
-package duke;
+package ListGPT;
 
 public class InvalidTaskException extends RuntimeException {
     public InvalidTaskException(String message) {

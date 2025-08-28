@@ -1,4 +1,4 @@
-package duke;
+package ListGPT;
 
 import java.util.ArrayList;
 
@@ -41,6 +41,25 @@ public class TaskList {
         }
 
         return output.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        final TaskList other = (TaskList) obj;
+
+        if (!this.tasks.equals(other.tasks)) {
+            return false;
+        }
+
+        return true;
     }
 
     /**

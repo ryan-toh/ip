@@ -1,4 +1,4 @@
-package duke;
+package ListGPT;
 
 import java.time.DateTimeException;
 import java.util.regex.Matcher;
