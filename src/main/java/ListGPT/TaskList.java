@@ -5,9 +5,9 @@ import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> tasks = new ArrayList<>();
 
-    public String add(Task t) {
-        tasks.add(t);
-        return "   added: " + t.toString();
+    public String add(Task task) {
+        tasks.add(task);
+        return "   added: " + task.toString();
     }
 
     public String remove(int ind) {
@@ -16,19 +16,19 @@ public class TaskList {
         return "   " + output.toString();
     }
 
-    public Boolean contains(int ind) {
-        return ind >= 0 && ind <= tasks.size();
+    public Boolean contains(int index) {
+        return index >= 0 && index < tasks.size();
     }
 
-    public String markDone(int ind) {
+    public String markDone(int index) {
         StringBuilder output = new StringBuilder("   Nice! I've marked this task as done:\n");
-        output.append("      ").append(tasks.get(ind).markDone()).append("\n");
+        output.append("      ").append(tasks.get(index).markDone()).append("\n");
         return output.toString();
     }
 
-    public String markUndone(int ind) {
+    public String markUndone(int index) {
         StringBuilder output = new StringBuilder("   OK, I've marked this task as not done yet:\n");
-        output.append("      ").append(tasks.get(ind).markUndone()).append("\n");
+        output.append("      ").append(tasks.get(index).markUndone()).append("\n");
         return output.toString();
     }
 
@@ -62,14 +62,6 @@ public class TaskList {
         return true;
     }
 
-    /**
-     * Overwrites the current list with the provided list
-     * @param list An ArrayList of Tasks
-     */
-    public void importList(ArrayList<Task> list) {
-        this.tasks = list;
-    }
-
     public ArrayList<Task> exportList() {
         return this.tasks;
     }
@@ -79,6 +71,7 @@ public class TaskList {
     }
 
     public String getPrettyCount() {
-        return "   Now you have " + this.getCount() + " " + (tasks.size() == 1 ? "task" : "tasks") + " in the list.";
+        return "   Now you have " + this.getCount() + " "
+                + (tasks.size() == 1 ? "task" : "tasks") + " in the list.";
     }
 }

@@ -1,24 +1,24 @@
 package ListGPT;
 
 public class Task {
-    private String name;
+    private String description;
     private Boolean isComplete;
 
-    public Task(String name) throws InvalidTaskException {
-        if (name.isEmpty()) {
+    public Task(String description) throws InvalidTaskException {
+        if (description.isEmpty()) {
             throw new InvalidTaskException("   OOPS!! The description of a todo cannot be empty.");
         }
-        this.name = name;
+        this.description = description;
         this.isComplete = false;
     }
 
     @Override
     public String toString() {
-        return "[" + (isComplete ? "X" : " ") + "] " + name;
+        return "[" + (isComplete ? "X" : " ") + "] " + description;
     }
 
     public String getDescription() {
-        return this.name;
+        return this.description;
     }
 
     public String markDone() {

@@ -7,17 +7,17 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Storage {
-    private String filepath;
+    private String filePath;
     private TaskList list;
 
-    public Storage(String filepath, TaskList list) {
-        this.filepath = filepath;
+    public Storage(String filePath, TaskList list) {
+        this.filePath = filePath;
         this.list = list;
     }
 
     public void store() {
         try {
-            File file = new File(filepath);
+            File file = new File(filePath);
 
             // Ensure parent directories exist
             File parent = file.getParentFile();
@@ -43,7 +43,7 @@ public class Storage {
 
     public void retrieve() {
         try {
-            File file = new File(filepath);
+            File file = new File(filePath);
             if (!file.exists()) {
                 return;
             }

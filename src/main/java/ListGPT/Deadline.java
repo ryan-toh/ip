@@ -6,7 +6,6 @@ import java.time.LocalDate;
 public class Deadline extends Task {
     private LocalDate dueDate;
 
-
     public Deadline(String name, String dueDate) throws DateTimeException {
         super(name);
         String[] params = dueDate.split("-");
@@ -15,17 +14,17 @@ public class Deadline extends Task {
             throw new DateTimeException("Invalid date format. ");
         }
 
-        this.dueDate = LocalDate.of(Integer.parseInt(params[0]), Integer.parseInt(params[1]),
+        this.dueDate = LocalDate.of(Integer.parseInt(params[0]),
+                Integer.parseInt(params[1]),
                 Integer.parseInt(params[2]));
-
     }
 
-    public String getBy() {
+    public String getDueDate() {
         return this.dueDate.toString();
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.getBy() + ")";
+        return "[D]" + super.toString() + " (by: " + this.getDueDate() + ")";
     }
 }

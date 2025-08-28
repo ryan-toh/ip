@@ -12,7 +12,7 @@ public class Parser {
         } else if (task instanceof Deadline) {
             Deadline d = (Deadline) task;
             // e.g. "deadline return book /by Sunday"
-            return "deadline " + d.getDescription() + " /by " + d.getBy();
+            return "deadline " + d.getDescription() + " /by " + d.getDueDate();
         } else if (task instanceof Event) {
             Event e = (Event) task;
             // e.g. "event project meeting /from Mon 2pm /to 4pm"
@@ -56,8 +56,9 @@ public class Parser {
             if (!list.contains(idx - 1)) {
                 return "   OOPS!! The task specified does not exist.";
             } else {
-                return "   Noted. I've removed this task:\n    " +
-                        list.remove(idx - 1) + "\n" + list.getPrettyCount();
+                return "   Noted. I've removed this task:\n    "
+                        + list.remove(idx - 1) + "\n"
+                        + list.getPrettyCount();
             }
         }
 
@@ -112,9 +113,9 @@ public class Parser {
     }
 
     private static int parseIndex(String input, String regex) {
-        Matcher m = Pattern.compile(regex).matcher(input);
-        if (m.find()) {
-            return Integer.parseInt(m.group(1));
+        Matcher matcher = Pattern.compile(regex).matcher(input);
+        if (matcher.find()) {
+            return Integer.parseInt(matcher.group(1));
         }
         return -1;
     }

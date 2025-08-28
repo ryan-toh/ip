@@ -1,5 +1,5 @@
    __________________________________
-   Hello! I'm listgpt!
+   Hello! I'm ListGPT!
    What can I do for you?
    __________________________________
 
