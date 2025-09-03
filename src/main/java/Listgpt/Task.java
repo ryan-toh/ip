@@ -1,4 +1,4 @@
-package ListGPT;
+package Listgpt;
 
 /**
  * Represents a task with a name and a completion state.

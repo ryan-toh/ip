@@ -1,7 +1,7 @@
-# ListGPT
+# Listgpt
 
 ## Introduction
-Adapted from the Java mascot _Duke_, ListGPT helps you keep track of tasks using a Command Line Interface, with an option to use a Graphical User Interface.
+Adapted from the Java mascot _Duke_, Listgpt helps you keep track of tasks using a Command Line Interface, with an option to use a Graphical User Interface.
 
 > “Your mind is for having ideas, not holding them.” – David Allen [source](https://dansilvestre.com/productivity-quotes/)
 
