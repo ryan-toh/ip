@@ -47,7 +47,12 @@ public class Listgpt extends Application {
         scrollPane.setContent(dialogContainer);
 
         userInput = new TextField();
+
         sendButton = new Button("Send");
+
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(userInterface.getResponse("hello"), dukeImage)
+        );
 
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
@@ -57,10 +62,12 @@ public class Listgpt extends Application {
         stage.setScene(scene);
         stage.show();
 
-        stage.setTitle("Duke");
-        stage.setResizable(false);
+        stage.setTitle("ListGPT");
+        stage.setResizable(true);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
+        stage.setMaxHeight(800.0);
+        stage.setMaxWidth(600.0);
 
         mainLayout.setPrefSize(400.0, 600.0);
 
@@ -73,17 +80,29 @@ public class Listgpt extends Application {
 
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
-        userInput.setPrefWidth(325.0);
+        userInput.setPrefHeight(41.0);
+        userInput.setPrefWidth(324.0);
+        userInput.setId("userInput");
+        userInput.setLayoutY(558.0);
 
-        sendButton.setPrefWidth(55.0);
+        sendButton.setPrefHeight(41.0);
+        sendButton.setPrefWidth(76.0);
+        sendButton.setId("sendButton");
+        sendButton.setLayoutX(324.0);
+        sendButton.setLayoutY(558.0);
+        sendButton.setMnemonicParsing(false);
 
         AnchorPane.setTopAnchor(scrollPane, 1.0);
+        AnchorPane.setLeftAnchor(scrollPane, 1.0);
+        AnchorPane.setRightAnchor(scrollPane, 1.0);
+        AnchorPane.setBottomAnchor(scrollPane, 60.0);
 
         AnchorPane.setBottomAnchor(sendButton, 1.0);
         AnchorPane.setRightAnchor(sendButton, 1.0);
 
         AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
+        AnchorPane.setRightAnchor(userInput, 76.0);
 
         sendButton.setOnMouseClicked((event) -> {
             handleUserInput();

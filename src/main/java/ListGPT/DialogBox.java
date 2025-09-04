@@ -1,6 +1,7 @@
 package Listgpt;
 
 import javafx.geometry.Pos;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,6 +21,7 @@ public class DialogBox extends HBox {
 
         //Styling the dialog box
         text.setWrapText(true);
+        text.setPadding(new Insets(10));
         displayPicture.setFitWidth(100.0);
         displayPicture.setFitHeight(100.0);
         this.setAlignment(Pos.TOP_RIGHT);

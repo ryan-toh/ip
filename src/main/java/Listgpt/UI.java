@@ -7,7 +7,7 @@ import java.util.Scanner;
  */
 public class UI {
     /** Display name used in greetings. */
-    private final String appName = "Listgpt";
+    private final String appName = "ListGPT";
 
     /** Horizontal line used as a visual separator around messages. */
     private final String lineBreak = "__________________________________";
@@ -65,6 +65,10 @@ public class UI {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
+        if (input.equals("hello")) {
+            return formatMessage("   Hello! I'm " + appName + "!\n   What can I do for you?");
+        }
+
         String response = Parser.parse(input, list);
         return formatMessage(response) + "\n";
     }
