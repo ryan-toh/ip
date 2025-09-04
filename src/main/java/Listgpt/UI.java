@@ -60,4 +60,12 @@ public class UI {
     private void sayBye() {
         System.out.println(formatMessage("   Bye. Hope to see you again soon!"));
     }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        String response = Parser.parse(input, list);
+        return formatMessage(response) + "\n";
+    }
 }
