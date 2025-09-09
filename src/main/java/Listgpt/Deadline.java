@@ -31,7 +31,6 @@ public class Deadline extends Task {
                 Integer.parseInt(params[0]),
                 Integer.parseInt(params[1]),
                 Integer.parseInt(params[2]));
-
     }
 
     /**

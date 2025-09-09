@@ -16,14 +16,19 @@ public class Parser {
      * @throws IllegalArgumentException If the task type is unknown.
      */
     public static String reverseParse(Task task) throws IllegalArgumentException {
+        assert task != null : "task is null";
+
         if (task instanceof ToDo) {
             // e.g. "todo read book"
+            assert task.getDescription() != null && !task.getDescription().isBlank(): "ToDo has empty description";
             return "todo " + task.getDescription();
         } else if (task instanceof Deadline) {
+            assert task.getDescription() != null && !task.getDescription().isBlank(): "Deadline has empty description";
             Deadline d = (Deadline) task;
             // e.g. "deadline return book /by Sunday"
             return "deadline " + d.getDescription() + " /by " + d.getDueDate();
         } else if (task instanceof Event) {
+            assert task.getDescription() != null && !task.getDescription().isBlank(): "Event has empty description";
             Event e = (Event) task;
             // e.g. "event project meeting /from Mon 2pm /to 4pm"
             return "event " + e.getDescription() + " /from " + e.getFrom() + " /to " + e.getTo();
@@ -40,6 +45,8 @@ public class Parser {
      * @return A confirmation message or error message based on the command executed.
      */
     public static String parse(String input, TaskList list) {
+        assert list != null : "list is null";
+        assert input != null : "input is null";
         input = input.trim();
 
         // View list
