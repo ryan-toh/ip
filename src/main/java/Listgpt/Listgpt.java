@@ -73,7 +73,7 @@ public class Listgpt extends Application {
         stage.setScene(scene);
         stage.show();
 
-        stage.setTitle("ListGPT");
+        stage.setTitle("Listgp");
         stage.setResizable(true);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);

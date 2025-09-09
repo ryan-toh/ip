@@ -7,7 +7,7 @@ import java.util.Scanner;
  */
 public class UI {
     /** Display name used in greetings. */
-    private final String appName = "ListGPT";
+    private final String appName = "Listgp";
 
     /** Horizontal line used as a visual separator around messages. */
     private final String lineBreak = "__________________________________";
