@@ -135,7 +135,7 @@ public class Parser {
             }
         }
 
-        // Add todo
+        // Add todo "todo <desc> [--tag <tag>]"
         if (input.startsWith("todo")) {
             String rest = input.length() >= 5 ? input.substring(5) : "";
 
@@ -150,13 +150,11 @@ public class Parser {
 
             try {
                 ToDo todo;
-
                 if (tag == null) {
                     todo = new ToDo(desc) ;
                 } else {
                     todo = new ToDo(desc, tag);
                 }
-
                 return list.add(todo) + "\n" + list.getPrettyCount();
 
             } catch (InvalidTaskException e) {
@@ -164,7 +162,7 @@ public class Parser {
             }
         }
 
-        // Add deadline: "deadline <desc> /by <when>"
+        // Add deadline: "deadline <desc> /by <when> [--tag <tag>]"
         if (input.startsWith("deadline")) {
             String rest = input.length() >= 9 ? input.substring(9) : "";
             String[] parts = rest.split(" /by ", 2);
@@ -184,7 +182,6 @@ public class Parser {
 
                 try {
                     Deadline deadline;
-
                     if (tag == null) {
                         deadline = new Deadline(task, deadlineDate);
                     } else {
@@ -200,11 +197,12 @@ public class Parser {
             }
         }
 
-        // Add event: "event <desc> /from <start> /to <end>"
+        // Add event: "event <desc> /from <start> /to <end> [--tag <tag>]"
         if (input.startsWith("event")) {
             String rest = input.length() >= 6 ? input.substring(6) : "";
             // Split on " /from " and " /to " keeping order
             String[] parts = rest.split(" /from | /to ", 3);
+
             if (parts.length == 3) {
                 String task = parts[0];
                 String startDate = parts[1];
@@ -220,14 +218,12 @@ public class Parser {
 
                 try {
                     Event event;
-
                     if (tag == null) {
                         event = new Event(task, startDate, endDate);
                     } else {
                         event = new Event(task, startDate, endDate, tag);
                     }
                     return list.add(event) + "\n" + list.getPrettyCount();
-
                 } catch (InvalidTaskException | DateTimeException e) {
                     return "    OOPS: " + e.getMessage();
                 }
@@ -236,7 +232,6 @@ public class Parser {
             }
         }
 
-        // Fallback
         return "   OOPS!! I'm sorry, but I don't know what that means :-(";
     }
 
