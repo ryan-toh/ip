@@ -16,14 +16,19 @@ public class Parser {
      * @throws IllegalArgumentException If the task type is unknown.
      */
     public static String reverseParse(Task task) throws IllegalArgumentException {
+        assert task != null : "task is null";
+
         if (task instanceof ToDo) {
             // e.g. "todo read book"
+            assert task.getDescription() != null && !task.getDescription().isBlank(): "ToDo has empty description";
             return "todo " + task.getDescription();
         } else if (task instanceof Deadline) {
+            assert task.getDescription() != null && !task.getDescription().isBlank(): "Deadline has empty description";
             Deadline d = (Deadline) task;
             // e.g. "deadline return book /by Sunday"
             return "deadline " + d.getDescription() + " /by " + d.getDueDate();
         } else if (task instanceof Event) {
+            assert task.getDescription() != null && !task.getDescription().isBlank(): "Event has empty description";
             Event e = (Event) task;
             // e.g. "event project meeting /from Mon 2pm /to 4pm"
             return "event " + e.getDescription() + " /from " + e.getFrom() + " /to " + e.getTo();
@@ -40,6 +45,8 @@ public class Parser {
      * @return A confirmation message or error message based on the command executed.
      */
     public static String parse(String input, TaskList list) {
+        assert list != null : "list is null";
+        assert input != null : "input is null";
         input = input.trim();
 
         // View list
@@ -56,6 +63,8 @@ public class Parser {
         // Mark done
         if (input.matches("^mark \\d+$")) {
             int idx = parseIndex(input, "^mark (\\d+)$");
+            assert idx > 0 : "Regex matched but index <= 0";
+
             if (list.contains(idx - 1)) {
                 return list.markDone(idx - 1);
             } else {
@@ -66,6 +75,8 @@ public class Parser {
         // Mark undone
         if (input.matches("^unmark \\d+$")) {
             int idx = parseIndex(input, "^unmark (\\d+)$");
+            assert idx > 0 : "Regex matched but index <= 0";
+
             if (list.contains(idx - 1)) {
                 return list.markUndone(idx - 1);
             } else {
@@ -76,6 +87,8 @@ public class Parser {
         // Delete
         if (input.matches("^delete \\d+$")) {
             int idx = parseIndex(input, "^delete (\\d+)$");
+            assert idx > 0 : "Regex matched but index <= 0";
+
             if (!list.contains(idx - 1)) {
                 return "   OOPS!! The task specified does not exist.";
             } else {
