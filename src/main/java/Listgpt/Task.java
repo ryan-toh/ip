@@ -1,5 +1,7 @@
 package Listgpt;
 
+import java.util.Optional;
+
 /**
  * Represents a task with a name and a completion state.
  * The display format follows "[X] name" when completed and "[ ] name" otherwise.
@@ -11,6 +13,9 @@ public class Task {
 
     /** Completion flag; set to true if the task is done. */
     private Boolean isComplete;
+
+    /** Task tag; can be left empty */
+    private String tag = "";
 
     /**
      * Constructs a Task with the given name.
@@ -27,13 +32,29 @@ public class Task {
     }
 
     /**
+     * Constructs a Task with the given name.
+     *
+     * @param description the task name/description.
+     * @param tag the tag assigned to the Task.
+     * @throws InvalidTaskException if name is empty.
+     */
+    public Task(String description, String tag) throws InvalidTaskException {
+        if (description.isEmpty()) {
+            throw new InvalidTaskException("   OOPS!! The description of a todo cannot be empty.");
+        }
+        this.description = description;
+        this.isComplete = false;
+        this.tag = tag;
+    }
+
+    /**
      * Returns the display string for this task in the form "[X] name" or "[ ] name".
      *
      * @return the string representation of this task.
      */
     @Override
     public String toString() {
-        return "[" + (isComplete ? "X" : " ") + "] " + description;
+        return "[" + (isComplete ? "X" : " ") + "] " + description + (tag.isEmpty() ? "" : " [tag: " + tag + "]");
     }
 
     /**
@@ -43,6 +64,15 @@ public class Task {
      */
     public String getDescription() {
         return this.description;
+    }
+
+    /**
+     * Returns the task tag.
+     *
+     * @return the task tag.
+     */
+    public String getTag() {
+        return this.tag;
     }
 
     /**

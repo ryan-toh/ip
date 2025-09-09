@@ -82,7 +82,7 @@ public class TaskList {
         for (int i = 0; i < tasks.size(); i++) {
             int idx = i + 1;
             Task task = tasks.get(i);
-            output.append("   ").append(idx).append(". ").append(task).append("\n");
+            output.append("   ").append(idx).append(". ").append(task.toString()).append("\n");
         }
 
         return output.toString();

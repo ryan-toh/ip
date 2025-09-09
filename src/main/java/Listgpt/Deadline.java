@@ -34,6 +34,28 @@ public class Deadline extends Task {
     }
 
     /**
+     * Constructs a Deadline with the given task name and due date.
+     *
+     * @param name the task name.
+     * @param dueDate the due date string in ISO-8601 format.
+     * @throws DateTimeException if the date string is not in format,
+     *                           or if the year/month/day values are invalid.
+     */
+    public Deadline(String name, String dueDate, String tag) throws DateTimeException {
+        super(name, tag);
+        String[] params = dueDate.split("-");
+
+        if (params.length != 3) {
+            throw new DateTimeException("Invalid date format. ");
+        }
+
+        this.dueDate = LocalDate.of(
+                Integer.parseInt(params[0]),
+                Integer.parseInt(params[1]),
+                Integer.parseInt(params[2]));
+    }
+
+    /**
      * Returns the due date as an ISO-8601 string.
      *
      * @return the due date string.

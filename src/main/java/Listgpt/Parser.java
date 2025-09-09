@@ -21,17 +21,54 @@ public class Parser {
         if (task instanceof ToDo) {
             // e.g. "todo read book"
             assert task.getDescription() != null && !task.getDescription().isBlank(): "ToDo has empty description";
-            return "todo " + task.getDescription();
+
+            String tag = task.getTag();
+            if (tag.isEmpty()) {
+                return "todo " + task.getDescription();
+            }
+
+            return "todo " + task.getDescription() + " --tag " + tag;
         } else if (task instanceof Deadline) {
-            assert task.getDescription() != null && !task.getDescription().isBlank(): "Deadline has empty description";
-            Deadline d = (Deadline) task;
             // e.g. "deadline return book /by Sunday"
-            return "deadline " + d.getDescription() + " /by " + d.getDueDate();
+            assert task.getDescription() != null && !task.getDescription().isBlank(): "Deadline has empty description";
+            Deadline deadline = (Deadline) task;
+
+            String tag = deadline.getTag();
+            if (tag.isEmpty()) {
+                return "deadline "
+                        + deadline.getDescription()
+                        + " /by "
+                        + deadline.getDueDate();
+            }
+
+            return "deadline "
+                    + deadline.getDescription()
+                    + " /by "
+                    + deadline.getDueDate()
+                    + " --tag "
+                    + tag;
+
         } else if (task instanceof Event) {
-            assert task.getDescription() != null && !task.getDescription().isBlank(): "Event has empty description";
-            Event e = (Event) task;
             // e.g. "event project meeting /from Mon 2pm /to 4pm"
-            return "event " + e.getDescription() + " /from " + e.getFrom() + " /to " + e.getTo();
+            assert task.getDescription() != null && !task.getDescription().isBlank(): "Event has empty description";
+            Event event = (Event) task;
+
+            String tag = event.getTag();
+            if (tag.isEmpty()) {
+                return "event "
+                        + event.getDescription()
+                        + " /from "
+                        + event.getFrom()
+                        + " /to "
+                        + event.getTo();
+            }
+            return "event "
+                    + event.getDescription()
+                    + " /from " + event.getFrom()
+                    + " /to " + event.getTo()
+                    + " --tag "
+                    + tag;
+
         } else {
             throw new IllegalArgumentException("Unknown task type: " + task.getClass().getName());
         }
@@ -101,8 +138,27 @@ public class Parser {
         // Add todo
         if (input.startsWith("todo")) {
             String rest = input.length() >= 5 ? input.substring(5) : "";
+
+            // everything after "--tag" is the tag
+            String[] parts = rest.split("\\s+--tag\\s+", 2);
+            String desc = parts[0].trim();
+            String tag = null;
+
+            if (parts.length == 2) {
+                tag = parts[1].trim();
+            }
+
             try {
-                return list.add(new ToDo(rest)) + "\n" + list.getPrettyCount();
+                ToDo todo;
+
+                if (tag == null) {
+                    todo = new ToDo(desc) ;
+                } else {
+                    todo = new ToDo(desc, tag);
+                }
+
+                return list.add(todo) + "\n" + list.getPrettyCount();
+
             } catch (InvalidTaskException e) {
                 return e.getMessage();
             }
@@ -112,11 +168,30 @@ public class Parser {
         if (input.startsWith("deadline")) {
             String rest = input.length() >= 9 ? input.substring(9) : "";
             String[] parts = rest.split(" /by ", 2);
+
             if (parts.length == 2) {
                 String task = parts[0];
-                String deadline = parts[1];
+                String right = parts[1];
+
+                // everything after "--tag" is the tag
+                String[] dateAndTag = right.split("\\s+--tag\\s+", 2);
+                String deadlineDate = dateAndTag[0].trim();
+                String tag = null;
+
+                if (dateAndTag.length == 2) {
+                    tag = dateAndTag[1].trim();
+                }
+
                 try {
-                    return list.add(new Deadline(task, deadline)) + "\n" + list.getPrettyCount();
+                    Deadline deadline;
+
+                    if (tag == null) {
+                        deadline = new Deadline(task, deadlineDate);
+                    } else {
+                        deadline = new Deadline(task, deadlineDate, tag);
+                    }
+                    return list.add(deadline) + "\n" + list.getPrettyCount();
+
                 } catch (InvalidTaskException | DateTimeException e) {
                     return "    OOPS: " + e.getMessage();
                 }
@@ -133,9 +208,26 @@ public class Parser {
             if (parts.length == 3) {
                 String task = parts[0];
                 String startDate = parts[1];
-                String endDate = parts[2];
+
+                // endDate may include an optional tag after "--tag"
+                String[] endDateAndTag = parts[2].trim().split("\\s+--tag\\s+", 2);
+                String endDate = endDateAndTag[0].trim();
+                String tag = null;
+
+                if (endDateAndTag.length == 2) {
+                    tag = endDateAndTag[1].trim();
+                }
+
                 try {
-                    return list.add(new Event(task, startDate, endDate)) + "\n" + list.getPrettyCount();
+                    Event event;
+
+                    if (tag == null) {
+                        event = new Event(task, startDate, endDate);
+                    } else {
+                        event = new Event(task, startDate, endDate, tag);
+                    }
+                    return list.add(event) + "\n" + list.getPrettyCount();
+
                 } catch (InvalidTaskException | DateTimeException e) {
                     return "    OOPS: " + e.getMessage();
                 }

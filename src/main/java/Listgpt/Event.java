@@ -45,6 +45,36 @@ public class Event extends Task {
     }
 
     /**
+     * Constructs an Event with the given name, start date, and end date.
+     *
+     *
+     * @param name the task name.
+     * @param startDate the start date string in yyyy-MM-dd format.
+     * @param endDate the end date string in yyyy-MM-dd format.
+     * @param tag the tag assigned to the Event.
+     * @throws DateTimeException if either date string is not in the required format or
+     *                           if the parsed year/month/day values are invalid.
+     */
+    public Event(String name, String startDate, String endDate, String tag) throws DateTimeException {
+        super(name, tag);
+        String[] startParams = startDate.split("-");
+        String[] endParams = endDate.split("-");
+
+        if (startParams.length != 3 || endParams.length != 3) {
+            throw new DateTimeException("Invalid date format.");
+        }
+
+        this.startDate = LocalDate.of(
+                Integer.parseInt(startParams[0]),
+                Integer.parseInt(startParams[1]),
+                Integer.parseInt(startParams[2]));
+        this.endDate = LocalDate.of(
+                Integer.parseInt(endParams[0]),
+                Integer.parseInt(endParams[1]),
+                Integer.parseInt(endParams[2]));
+    }
+
+    /**
      * Returns the start date in ISO-8601 format.
      *
      * @return the start date string.

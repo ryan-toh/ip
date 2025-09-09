@@ -14,6 +14,16 @@ public class ToDo extends Task {
     }
 
     /**
+     * Constructs a new to-do task with the given description.
+     *
+     * @param description The description of the to-do task.
+     * @param tag The tag assigned to the to-do task.
+     */
+    public ToDo(String description, String tag) {
+        super(description, tag);
+    }
+
+    /**
      * Returns the string representation of the to-do task, prefixed with "[T]"
      * to indicate its type.
      *
