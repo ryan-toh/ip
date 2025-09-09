@@ -14,11 +14,18 @@ public class Storage {
     private TaskList list;
 
     public Storage(String filePath, TaskList list) {
+        assert filePath != null && !filePath.isBlank() : "filePath is null/blank";
+        assert list != null : "Task list is null";
+
         this.filePath = filePath;
         this.list = list;
     }
 
     public void store() {
+        // Ensure filePath and list is still valid
+        assert filePath != null && !filePath.isBlank();
+        assert list != null;
+
         try {
             File file = new File(filePath);
 
@@ -35,7 +42,11 @@ public class Storage {
 
             // Write to the file
             FileWriter fw = new FileWriter(file, false); // false = overwrite, true = append
-            for (Task task : list.exportList()) {
+            var exportedList = list.exportList();
+            assert exportedList != null: "exportList() returned null";
+
+            for (Task task : exportedList) {
+                assert task != null : "exported task is null";
                 fw.write(Parser.reverseParse(task) + System.lineSeparator());
             }
             fw.close();
@@ -45,6 +56,9 @@ public class Storage {
     }
 
     public void retrieve() {
+        assert filePath != null && !filePath.isBlank() : "filePath is null/blank";
+        assert list != null : "Task list is null";
+
         try {
             File file = new File(filePath);
             if (!file.exists()) {
@@ -53,7 +67,11 @@ public class Storage {
 
             Scanner s = new Scanner(file);
             while (s.hasNext()) {
-                Parser.parse(s.nextLine(), list);
+                String line = s.nextLine();
+                assert line != null : "null line read";
+                assert !line.isBlank() : "Blank line in storage file";
+
+                Parser.parse(line, list);
             }
         } catch (FileNotFoundException e) {
             System.out.println("Error while reading file: " + e.getMessage());
