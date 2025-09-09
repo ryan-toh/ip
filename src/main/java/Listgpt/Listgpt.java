@@ -24,7 +24,7 @@ public class Listgpt extends Application {
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     private static TaskList list = new TaskList();
-    private static UI userInterface = new UI(list);
+    private static CLI userInterface = new CLI(list);
     private static Storage storage = new Storage("./data/Listgpt.txt", list);
 
     /**
