@@ -1,4 +1,4 @@
-package Listgpt;
+package Listgp;
 
 public class InvalidTaskException extends RuntimeException {
     public InvalidTaskException(String message) {

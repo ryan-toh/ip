@@ -1,4 +1,4 @@
-package Listgpt;
+package Listgp;
 
 /**
  * Represents a todo task for a simple to-do item.
