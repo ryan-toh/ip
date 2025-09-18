@@ -4,6 +4,9 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Main entry point of application for CLI and GUI.
+ */
 public class Listgpt extends Application {
 
     private static TaskList list = new TaskList();
@@ -27,10 +30,8 @@ public class Listgpt extends Application {
 
     /**
      * GUI Interface for ListGPT
-     * @param stage the primary stage for this application, onto which
-     * the application scene can be set.
-     * Applications may create other stages, if needed, but they will not be
-     * primary stages.
+     * @param stage the primary stage for this application, onto which the application scene can be set.
+     * Applications may create other stages, if needed, but they will not be primary stages.
      */
     @Override
     public void start(Stage stage) {
@@ -49,6 +50,8 @@ public class Listgpt extends Application {
 
     @Override
     public void stop() {
-        if (userInterface != null) userInterface.onStop();
+        if (userInterface != null) {
+            userInterface.onStop();
+        }
     }
 }

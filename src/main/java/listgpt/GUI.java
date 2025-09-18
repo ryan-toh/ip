@@ -10,6 +10,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
+/**
+ * JavaFX User Interface for Listgpt
+ */
 public class GUI {
     private final TaskList list;
     private final CLI messageInterface;
@@ -25,6 +28,12 @@ public class GUI {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Creates a GUI object with the given parameters.
+     * @param list a TaskList, must not be null
+     * @param messageInterface a CLI object, must not be null
+     * @param storage a Storage object, must not be null
+     */
     public GUI(TaskList list, CLI messageInterface, Storage storage) {
         assert list != null && messageInterface != null && storage != null;
         this.list = list;
@@ -103,7 +112,9 @@ public class GUI {
 
     private void handleUserInput() {
         String userText = userInput.getText();
-        if (userText == null) return;
+        if (userText == null) {
+            return;
+        }
 
         if (userText.equals("bye")) {
             // save before exit
