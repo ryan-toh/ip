@@ -13,9 +13,9 @@ import javafx.scene.layout.VBox;
 /**
  * JavaFX User Interface for Listgpt
  */
-public class Gui {
+public class GraphicalInterface {
     private final TaskList list;
-    private final Cli messageInterface;
+    private final CommandLine messageInterface;
     private final Storage storage;
 
     // UI nodes
@@ -34,7 +34,7 @@ public class Gui {
      * @param messageInterface a CLI object, must not be null
      * @param storage a Storage object, must not be null
      */
-    public Gui(TaskList list, Cli messageInterface, Storage storage) {
+    public GraphicalInterface(TaskList list, CommandLine messageInterface, Storage storage) {
         assert list != null && messageInterface != null && storage != null;
         this.list = list;
         this.messageInterface = messageInterface;
