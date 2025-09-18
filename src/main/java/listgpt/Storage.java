@@ -1,4 +1,4 @@
-package Listgp;
+package listgpt;
 
 import java.io.File;
 import java.io.FileNotFoundException;

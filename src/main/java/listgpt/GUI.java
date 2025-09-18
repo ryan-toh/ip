@@ -1,4 +1,4 @@
-package Listgp;
+package listgpt;
 
 import javafx.application.Platform;
 import javafx.scene.Scene;

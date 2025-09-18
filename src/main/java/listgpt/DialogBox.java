@@ -1,4 +1,4 @@
-package Listgp;
+package listgpt;
 
 import javafx.geometry.Pos;
 import javafx.geometry.Insets;
