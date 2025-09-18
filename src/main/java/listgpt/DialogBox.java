@@ -1,20 +1,29 @@
-package Listgpt;
+package listgpt;
 
-import javafx.geometry.Pos;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
 
+
+/**
+ * A simple DialogBox to be used for each response and request message.
+ */
 public class DialogBox extends HBox {
 
     private Label text;
     private ImageView displayPicture;
 
+    /**
+     * Creates a dialog box with the provided inputs.
+     * @param s the message to display.
+     * @param i an Image representing the author of the message.
+     */
     public DialogBox(String s, Image i) {
         text = new Label(s);
         displayPicture = new ImageView(i);

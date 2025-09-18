@@ -1,4 +1,4 @@
-package Listgpt;
+package listgpt;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,6 +13,15 @@ public class Storage {
     private String filePath;
     private TaskList list;
 
+    /**
+     * Constructs a Storage object with the specified file path and task list.
+     *
+     * <p>Initializes the storage with the provided file path and task list.
+     * Ensures that the filePath is not null or blank and TaskList is not null.
+     *
+     * @param filePath the path to the storage file; must not be null or blank
+     * @param list the task list to be stored; must not be null
+     */
     public Storage(String filePath, TaskList list) {
         assert filePath != null && !filePath.isBlank() : "filePath is null/blank";
         assert list != null : "Task list is null";
@@ -21,6 +30,17 @@ public class Storage {
         this.list = list;
     }
 
+    /**
+     * Saves the current task list to the specified file path, overwriting the file each time.
+     *
+     * <p>This method ensures the parent directory exists and creates the file if necessary.
+     * It writes the task list in a format that can be parsed by the application's loader.
+     * The file is overwritten completely on each call to this method, ensuring the latest task list is stored.
+     *
+     * <p>Note: The method does not throw exceptions;
+     * any I/O errors are printed to the console.
+     * It assumes the file path and task list are valid (as verified by assertions at the start of the method).
+     */
     public void store() {
         // Ensure filePath and list is still valid
         assert filePath != null && !filePath.isBlank();
@@ -43,7 +63,7 @@ public class Storage {
             // Write to the file
             FileWriter fw = new FileWriter(file, false); // false = overwrite, true = append
             var exportedList = list.exportList();
-            assert exportedList != null: "exportList() returned null";
+            assert exportedList != null : "exportList() returned null";
 
             for (Task task : exportedList) {
                 assert task != null : "exported task is null";
@@ -55,6 +75,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads tasks from the file at filePath and adds them to the task list.
+     * If the file does not exist, nothing is loaded. Prints an error if the file cannot be opened.
+     */
     public void retrieve() {
         assert filePath != null && !filePath.isBlank() : "filePath is null/blank";
         assert list != null : "Task list is null";

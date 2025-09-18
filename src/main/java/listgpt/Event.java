@@ -1,4 +1,4 @@
-package Listgpt;
+package listgpt;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -94,7 +94,7 @@ public class Event extends Task {
 
     /**
      * Returns the display string for this event task.
-     * The format is "[E]<TaskString> (from: yyyy-MM-dd to:yyyy-MM-dd)".
+     * The format is "[E](taskString) (from: yyyy-MM-dd to:yyyy-MM-dd)".
      *
      * @return a string representation of this event.
      */

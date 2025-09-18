@@ -1,14 +1,17 @@
-package Listgpt;
+package listgpt;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Main entry point of application for CLI and GUI.
+ */
 public class Listgpt extends Application {
 
     private static TaskList list = new TaskList();
-    private static CLI messageInterface = new CLI(list);
-    private static GUI userInterface;
+    private static CommandLine messageInterface = new CommandLine(list);
+    private static GraphicalInterface userInterface;
     private static Storage storage = new Storage("./data/Listgpt.txt", list);
 
     /**
@@ -26,15 +29,12 @@ public class Listgpt extends Application {
     }
 
     /**
-     * GUI Interface for ListGPT
-     * @param stage the primary stage for this application, onto which
-     * the application scene can be set.
-     * Applications may create other stages, if needed, but they will not be
-     * primary stages.
+     * Creates an instance of the user interface
+     * @param stage The stage to display the user interface on.
      */
     @Override
     public void start(Stage stage) {
-        userInterface = new GUI(list, messageInterface, storage);
+        userInterface = new GraphicalInterface(list, messageInterface, storage);
         Scene scene = userInterface.build();
 
         stage.setTitle("ListGPT");
@@ -49,6 +49,8 @@ public class Listgpt extends Application {
 
     @Override
     public void stop() {
-        if (userInterface != null) userInterface.onStop();
+        if (userInterface != null) {
+            userInterface.onStop();
+        }
     }
 }

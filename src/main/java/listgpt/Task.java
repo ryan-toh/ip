@@ -1,6 +1,4 @@
-package Listgpt;
-
-import java.util.Optional;
+package listgpt;
 
 /**
  * Represents a task with a name and a completion state.

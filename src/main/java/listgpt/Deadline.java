@@ -1,4 +1,4 @@
-package Listgpt;
+package listgpt;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -66,7 +66,7 @@ public class Deadline extends Task {
 
     /**
      * Returns the display string for this deadline task.
-     * The format is "[D]<TaskString> (by:yyyy-MM-dd)".
+     * The format is "[D](TaskString) (by:yyyy-MM-dd)".
      *
      * @return the string representation of this deadline.
      */

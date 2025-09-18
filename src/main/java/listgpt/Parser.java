@@ -1,4 +1,4 @@
-package Listgpt;
+package listgpt;
 
 import java.time.DateTimeException;
 import java.util.regex.Matcher;
@@ -20,7 +20,8 @@ public class Parser {
 
         if (task instanceof ToDo) {
             // e.g. "todo read book"
-            assert task.getDescription() != null && !task.getDescription().isBlank(): "ToDo has empty description";
+            assert task.getDescription() != null
+                    && !task.getDescription().isBlank() : "ToDo has empty description";
 
             String tag = task.getTag();
             if (tag.isEmpty()) {
@@ -30,7 +31,8 @@ public class Parser {
             return "todo " + task.getDescription() + " --tag " + tag;
         } else if (task instanceof Deadline) {
             // e.g. "deadline return book /by Sunday"
-            assert task.getDescription() != null && !task.getDescription().isBlank(): "Deadline has empty description";
+            assert task.getDescription() != null
+                    && !task.getDescription().isBlank() : "Deadline has empty description";
             Deadline deadline = (Deadline) task;
 
             String tag = deadline.getTag();
@@ -50,7 +52,8 @@ public class Parser {
 
         } else if (task instanceof Event) {
             // e.g. "event project meeting /from Mon 2pm /to 4pm"
-            assert task.getDescription() != null && !task.getDescription().isBlank(): "Event has empty description";
+            assert task.getDescription() != null
+                    && !task.getDescription().isBlank() : "Event has empty description";
             Event event = (Event) task;
 
             String tag = event.getTag();
@@ -151,7 +154,7 @@ public class Parser {
             try {
                 ToDo todo;
                 if (tag == null) {
-                    todo = new ToDo(desc) ;
+                    todo = new ToDo(desc);
                 } else {
                     todo = new ToDo(desc, tag);
                 }

@@ -1,11 +1,11 @@
-package Listgpt;
+package listgpt;
 
 import java.util.Scanner;
 
 /**
  * Console-based user interface for the ListGPT application.
  */
-public class CLI {
+public class CommandLine {
     /** Display name used in greetings. */
     private final String appName = "ListGPT";
 
@@ -20,7 +20,7 @@ public class CLI {
      *
      * @param list the TaskList to operate on; must not be null.
      */
-    public CLI(TaskList list) {
+    public CommandLine(TaskList list) {
         this.list = list;
     }
 

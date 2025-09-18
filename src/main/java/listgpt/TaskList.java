@@ -1,4 +1,4 @@
-package Listgpt;
+package listgpt;
 
 import java.util.ArrayList;
 
