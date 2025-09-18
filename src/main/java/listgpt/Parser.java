@@ -77,164 +77,151 @@ public class Parser {
         }
     }
 
-    /**
-     * Parses user input and executes the corresponding command on the task list.
-     *
-     * @param input The user input string to be parsed.
-     * @param list  The task list to apply the command to.
-     * @return A confirmation message or error message based on the command executed.
-     */
     public static String parse(String input, TaskList list) {
         assert list != null : "list is null";
         assert input != null : "input is null";
         input = input.trim();
 
-        // View list
         if (input.equals("list")) {
-            return list.toString();
+            return handleList(list);
         }
-
-        // Find
         if (input.startsWith("find")) {
-            String rest = input.length() >= 5 ? input.substring(5) : "";
-            return list.find(rest);
+            return handleFind(input, list);
         }
-
-        // Mark done
         if (input.matches("^mark \\d+$")) {
-            int idx = parseIndex(input, "^mark (\\d+)$");
-            assert idx > 0 : "Regex matched but index <= 0";
-
-            if (list.contains(idx - 1)) {
-                return list.markDone(idx - 1);
-            } else {
-                return "The task with the specified index " + idx + " does not exist.";
-            }
+            return handleMark(input, list);
         }
-
-        // Mark undone
         if (input.matches("^unmark \\d+$")) {
-            int idx = parseIndex(input, "^unmark (\\d+)$");
-            assert idx > 0 : "Regex matched but index <= 0";
-
-            if (list.contains(idx - 1)) {
-                return list.markUndone(idx - 1);
-            } else {
-                return "The task with the specified index " + idx + " does not exist.";
-            }
+            return handleUnmark(input, list);
         }
-
-        // Delete
         if (input.matches("^delete \\d+$")) {
-            int idx = parseIndex(input, "^delete (\\d+)$");
-            assert idx > 0 : "Regex matched but index <= 0";
-
-            if (!list.contains(idx - 1)) {
-                return "   OOPS!! The task specified does not exist.";
-            } else {
-                return "   Noted. I've removed this task:\n    "
-                        + list.remove(idx - 1) + "\n"
-                        + list.getPrettyCount();
-            }
+            return handleDelete(input, list);
         }
-
-        // Add todo "todo <desc> [--tag <tag>]"
         if (input.startsWith("todo")) {
-            String rest = input.length() >= 5 ? input.substring(5) : "";
-
-            // everything after "--tag" is the tag
-            String[] parts = rest.split("\\s+--tag\\s+", 2);
-            String desc = parts[0].trim();
-            String tag = null;
-
-            if (parts.length == 2) {
-                tag = parts[1].trim();
-            }
-
-            try {
-                ToDo todo;
-                if (tag == null) {
-                    todo = new ToDo(desc);
-                } else {
-                    todo = new ToDo(desc, tag);
-                }
-                return list.add(todo) + "\n" + list.getPrettyCount();
-
-            } catch (InvalidTaskException e) {
-                return e.getMessage();
-            }
+            return handleTodo(input, list);
         }
-
-        // Add deadline: "deadline <desc> /by <when> [--tag <tag>]"
         if (input.startsWith("deadline")) {
-            String rest = input.length() >= 9 ? input.substring(9) : "";
-            String[] parts = rest.split(" /by ", 2);
-
-            if (parts.length == 2) {
-                String task = parts[0];
-                String right = parts[1];
-
-                // everything after "--tag" is the tag
-                String[] dateAndTag = right.split("\\s+--tag\\s+", 2);
-                String deadlineDate = dateAndTag[0].trim();
-                String tag = null;
-
-                if (dateAndTag.length == 2) {
-                    tag = dateAndTag[1].trim();
-                }
-
-                try {
-                    Deadline deadline;
-                    if (tag == null) {
-                        deadline = new Deadline(task, deadlineDate);
-                    } else {
-                        deadline = new Deadline(task, deadlineDate, tag);
-                    }
-                    return list.add(deadline) + "\n" + list.getPrettyCount();
-
-                } catch (InvalidTaskException | DateTimeException e) {
-                    return "    OOPS: " + e.getMessage();
-                }
-            } else {
-                return "Usage: deadline <description> /by <YYYY-MM-DD>";
-            }
+            return handleDeadline(input, list);
         }
-
-        // Add event: "event <desc> /from <start> /to <end> [--tag <tag>]"
         if (input.startsWith("event")) {
-            String rest = input.length() >= 6 ? input.substring(6) : "";
-            // Split on " /from " and " /to " keeping order
-            String[] parts = rest.split(" /from | /to ", 3);
-
-            if (parts.length == 3) {
-                String task = parts[0];
-                String startDate = parts[1];
-
-                // endDate may include an optional tag after "--tag"
-                String[] endDateAndTag = parts[2].trim().split("\\s+--tag\\s+", 2);
-                String endDate = endDateAndTag[0].trim();
-                String tag = null;
-
-                if (endDateAndTag.length == 2) {
-                    tag = endDateAndTag[1].trim();
-                }
-
-                try {
-                    Event event;
-                    if (tag == null) {
-                        event = new Event(task, startDate, endDate);
-                    } else {
-                        event = new Event(task, startDate, endDate, tag);
-                    }
-                    return list.add(event) + "\n" + list.getPrettyCount();
-                } catch (InvalidTaskException | DateTimeException e) {
-                    return "    OOPS: " + e.getMessage();
-                }
-            } else {
-                return "Usage: event <description> /from <YYYY-MM-DD> /to <YYYY-MM-DD>";
-            }
+            return handleEvent(input, list);
         }
 
+        return unknownCommand();
+    }
+
+    // ===== Command handlers =====
+
+    private static String handleList(TaskList list) {
+        return list.toString();
+    }
+
+    private static String handleFind(String input, TaskList list) {
+        String rest = input.length() >= 5 ? input.substring(5) : "";
+        return list.find(rest);
+    }
+
+    private static String handleMark(String input, TaskList list) {
+        int idx = parseIndex(input, "^mark (\\d+)$");
+        assert idx > 0 : "Regex matched but index <= 0";
+        if (list.contains(idx - 1)) {
+            return list.markDone(idx - 1);
+        } else {
+            return "The task with the specified index " + idx + " does not exist.";
+        }
+    }
+
+    private static String handleUnmark(String input, TaskList list) {
+        int idx = parseIndex(input, "^unmark (\\d+)$");
+        assert idx > 0 : "Regex matched but index <= 0";
+        if (list.contains(idx - 1)) {
+            return list.markUndone(idx - 1);
+        } else {
+            return "The task with the specified index " + idx + " does not exist.";
+        }
+    }
+
+    private static String handleDelete(String input, TaskList list) {
+        int idx = parseIndex(input, "^delete (\\d+)$");
+        assert idx > 0 : "Regex matched but index <= 0";
+        if (!list.contains(idx - 1)) {
+            return "   OOPS!! The task specified does not exist.";
+        } else {
+            return "   Noted. I've removed this task:\n    "
+                    + list.remove(idx - 1) + "\n"
+                    + list.getPrettyCount();
+        }
+    }
+
+    // Add todo: "todo <desc> [--tag <tag>]"
+    private static String handleTodo(String input, TaskList list) {
+        String rest = input.length() >= 5 ? input.substring(5) : "";
+
+        String[] parts = rest.split("\\s+--tag\\s+", 2);
+        String desc = parts[0].trim();
+        String tag = (parts.length == 2) ? parts[1].trim() : null;
+
+        try {
+            ToDo todo = (tag == null) ? new ToDo(desc) : new ToDo(desc, tag);
+            return list.add(todo) + "\n" + list.getPrettyCount();
+        } catch (InvalidTaskException e) {
+            return e.getMessage();
+        }
+    }
+
+    // Add deadline: "deadline <desc> /by <when> [--tag <tag>]"
+    private static String handleDeadline(String input, TaskList list) {
+        String rest = input.length() >= 9 ? input.substring(9) : "";
+        String[] parts = rest.split(" /by ", 2);
+
+        if (parts.length != 2) {
+            return "Usage: deadline <description> /by <YYYY-MM-DD>";
+        }
+
+        String task = parts[0];
+        String right = parts[1];
+
+        String[] dateAndTag = right.split("\\s+--tag\\s+", 2);
+        String deadlineDate = dateAndTag[0].trim();
+        String tag = (dateAndTag.length == 2) ? dateAndTag[1].trim() : null;
+
+        try {
+            Deadline deadline = (tag == null)
+                    ? new Deadline(task, deadlineDate)
+                    : new Deadline(task, deadlineDate, tag);
+            return list.add(deadline) + "\n" + list.getPrettyCount();
+        } catch (InvalidTaskException | DateTimeException e) {
+            return "    OOPS: " + e.getMessage();
+        }
+    }
+
+    // Add event: "event <desc> /from <start> /to <end> [--tag <tag>]"
+    private static String handleEvent(String input, TaskList list) {
+        String rest = input.length() >= 6 ? input.substring(6) : "";
+        String[] parts = rest.split(" /from | /to ", 3);
+
+        if (parts.length != 3) {
+            return "Usage: event <description> /from <YYYY-MM-DD> /to <YYYY-MM-DD>";
+        }
+
+        String task = parts[0];
+        String startDate = parts[1];
+
+        String[] endDateAndTag = parts[2].trim().split("\\s+--tag\\s+", 2);
+        String endDate = endDateAndTag[0].trim();
+        String tag = (endDateAndTag.length == 2) ? endDateAndTag[1].trim() : null;
+
+        try {
+            Event event = (tag == null)
+                    ? new Event(task, startDate, endDate)
+                    : new Event(task, startDate, endDate, tag);
+            return list.add(event) + "\n" + list.getPrettyCount();
+        } catch (InvalidTaskException | DateTimeException e) {
+            return "    OOPS: " + e.getMessage();
+        }
+    }
+
+    private static String unknownCommand() {
         return "   OOPS!! I'm sorry, but I don't know what that means :-(";
     }
 
