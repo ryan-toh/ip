@@ -5,7 +5,7 @@ import java.util.Scanner;
 /**
  * Console-based user interface for the ListGPT application.
  */
-public class Cl {
+public class Cli {
     /** Display name used in greetings. */
     private final String appName = "ListGPT";
 
@@ -20,7 +20,7 @@ public class Cl {
      *
      * @param list the TaskList to operate on; must not be null.
      */
-    public Cl(TaskList list) {
+    public Cli(TaskList list) {
         this.list = list;
     }
 

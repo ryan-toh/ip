@@ -10,8 +10,8 @@ import javafx.stage.Stage;
 public class Listgpt extends Application {
 
     private static TaskList list = new TaskList();
-    private static Cl messageInterface = new Cl(list);
-    private static Gu userInterface;
+    private static Cli messageInterface = new Cli(list);
+    private static Gui userInterface;
     private static Storage storage = new Storage("./data/Listgpt.txt", list);
 
     /**
@@ -35,7 +35,7 @@ public class Listgpt extends Application {
      */
     @Override
     public void start(Stage stage) {
-        userInterface = new Gu(list, messageInterface, storage);
+        userInterface = new Gui(list, messageInterface, storage);
         Scene scene = userInterface.build();
 
         stage.setTitle("ListGPT");
