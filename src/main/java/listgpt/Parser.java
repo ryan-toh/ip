@@ -77,6 +77,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Takes in an input command from the user, executes the action, and outputs a response.
+     * @param input the user input.
+     * @param list the tasklist to be modified.
+     * @return the response to the user.
+     */
     public static String parse(String input, TaskList list) {
         assert list != null : "list is null";
         assert input != null : "input is null";
