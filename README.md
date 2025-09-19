@@ -1,6 +1,6 @@
 # ListGPT User Guide
 
-// Product screenshot goes here
+<img width="1427" height="1016" alt="Screenshot 2025-09-19 at 10 46 07" src="https://github.com/user-attachments/assets/34222efb-58eb-45d6-a0d4-179385adee7f" />
 
 Adapted from the Java mascot Duke, ListGPT helps you keep track of tasks using a Command Line Interface, with an option to use a Graphical User Interface.
 
