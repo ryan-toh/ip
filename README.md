@@ -1,36 +1,23 @@
-# listgpt
+# ListGPT User Guide
 
-## Introduction
-Adapted from the Java mascot _Duke_, listgpt helps you keep track of tasks using a Command Line Interface, with an option to use a Graphical User Interface.
+// Product screenshot goes here
 
-> “Your mind is for having ideas, not holding them.” – David Allen [source](https://dansilvestre.com/productivity-quotes/)
+Adapted from the Java mascot Duke, ListGPT helps you keep track of tasks using a Command Line Interface, with an option to use a Graphical User Interface.
 
-It's
-- **Fast**
-- **Simple**
-- **Reliable**
+## Command Reference
 
-All you need to do is,
+| Command            | Syntax                                                                  | Description                                        | Example                                                                                                                 |
+|--------------------|-------------------------------------------------------------------------|----------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
+| **List all tasks** | `list`                                                                  | Displays all tasks currently in your task list.    | `list`                                                                                                                  |
+| **Find tasks**     | `find <keyword>`                                                        | Shows tasks containing the keyword.                | `find book`                                                                                                             |
+| **Mark task done** | `mark <index>`                                                          | Marks the task at position `<index>` as completed. | `mark 2`                                                                                                                |
+| **Unmark task**    | `unmark <index>`                                                        | Marks the task at position `<index>` as not done.  | `unmark 2`                                                                                                              |
+| **Delete task**    | `delete <index>`                                                        | Removes the task at position `<index>`.            | `delete 3`                                                                                                              |
+| **Add ToDo**       | `todo <description> [--tag <tag>]`                                      | Adds a ToDo task with an optional tag.             | `todo read book`<br>`todo buy groceries --tag errands`                                                                  |
+| **Add Deadline**   | `deadline <description> /by <YYYY-MM-DD> [--tag <tag>]`                 | Adds a Deadline task with a due date.              | `deadline return book /by 2025-09-30`<br>`deadline submit report /by 2025-10-01 --tag school`                           |
+| **Add Event**      | `event <description> /from <YYYY-MM-DD> /to <YYYY-MM-DD> [--tag <tag>]` | Adds an Event task with a start and end date.      | `event project meeting /from 2025-09-20 /to 2025-09-21`<br>`event hackathon /from 2025-11-01 /to 2025-11-03 --tag work` |
 
-1. download it from [here](https://nus-cs2103-ay2526s1.github.io/website/schedule/week4/project.html).
-2. double-click it.
-3. add your tasks.
-4. let it manage your tasks for you :+1:
-
-Use `git status` to make sure you are up to date.
-
-## Features
-- [x] Managing tasks
-- [x] Managing deadlines
-- [x] Reminders
-
-To run the project from the CLI, simply put
-```
-public class Main {
-    public static void main(String[] args) {
-        Application.launch(MainApp.class, args);
-    }
-}
-```
-
-
+## Notes
+- `<index>` refers to the number shown in the task list (starting from 1).
+- Tags are optional, but can help you categorize tasks.
+- Dates should follow the format `YYYY-MM-DD`.
